@@ -5,6 +5,6 @@
 - Juan Jesús Padrón Hernández
 - Marco Antonio Maestre Mirabal
 
-## Diseño Lógico Relacional
+## Consultas
 
 ![Consultas](Farmacia/capturas/select_2.png)
