@@ -7,3 +7,4 @@
 
 ## Diseño Lógico Relacional
 
+![Consultas](Farmacia/capturas/select_2.png)
