@@ -7,4 +7,4 @@
 
 ## Consultas
 
-![Consultas](Farmacia/capturas/select_2.png)
+![Alt text](Farmacia/capturas/select_2.png)
