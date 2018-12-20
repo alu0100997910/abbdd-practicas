@@ -1,2 +1,2 @@
 # UML
-![Diagrama UML Catastro](catastroUML.jpg)
+![Diagrama UML Catastro](imagenes/catastroUML.jpg)
