@@ -7,4 +7,4 @@
 
 ## Diseño Lógico Relacional
 
-![Diseño Lógico Relacional](assets/viveros.png)
+![Diseño Lógico Relacional](imagenes/viveros.png)
