@@ -153,4 +153,4 @@ CREATE INDEX propietario_vivienda_idx  ON PropietarioVivienda (numero ASC, calle
 
 INSERT INTO zona (nombre, limite, extensión) values ('Mordor', array[POINT(1,1),POINT(2,2),POINT(3,3),POINT(4,4)], 27.5);
 INSERT INTO zona (nombre, limite, extensión) values ('Ofra', array[POINT(2,1),POINT(2,2),POINT(3,3),POINT(4,4)], 27.4);
-INSERT INTO ViviendaUnifamiliar (numero, calle, cp, m2_solar, fecha_construccion, zona) values (1, 'calle', 1234, 52, '12-22-2018', )
+INSERT INTO ViviendaUnifamiliar (numero, calle, cp, m2_solar, fecha_construccion, zona) values (1, 'calle', 1234, 52, '12-22-2018', 'Mordor')
