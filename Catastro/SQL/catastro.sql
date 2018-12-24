@@ -1,156 +1,198 @@
-CREATE TABLE IF NOT EXISTS Zona (
-  nombre VARCHAR(45) NOT NULL,
-  limite POINT[] NOT NULL,
-  extensión DECIMAL NULL,
-  PRIMARY KEY (nombre));
+CREATE TABLE public."Construccion" (
+    numero integer NOT NULL,
+    calle character varying(45) NOT NULL,
+    cp integer,
+    m2_solar double precision,
+    fecha_construccion date,
+    zona character varying(45) NOT NULL
+);
 
-CREATE TABLE IF NOT EXISTS ViviendaUnifamiliar (
-  numero INT NOT NULL,
-  calle VARCHAR(45) NOT NULL,
-  cp INT NULL,
-  m2_solar VARCHAR(45) NULL,
-  fecha_construccion VARCHAR(45) NULL,
-  zona VARCHAR(45) NULL,
-  PRIMARY KEY (numero, calle),
-  CONSTRAINT zona_vivienda
-    FOREIGN KEY (zona)
-    REFERENCES Zona (nombre)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-CREATE INDEX zona_vivienda_idx on ViviendaUnifamiliar (zona ASC) ;
+CREATE TABLE public."Bloque" (
+    nombre character varying NOT NULL,
+    m2_totales integer,
+    num_plantas integer
+)
+INHERITS (public."Construccion");
 
-CREATE TABLE IF NOT EXISTS Bloque (
-  numero INT NOT NULL,
-  calle VARCHAR(45) NOT NULL,
-  nombre INT NOT NULL,
-  cp INT NULL,
-  m2_solar INT NULL,
-  fecha_construccion DATE NULL,
-  m2_totales INT NULL,
-  num_plantas INT NULL,
-  zona VARCHAR(45) NULL,
-  PRIMARY KEY (numero, calle, nombre),
-  CONSTRAINT zona_bloque
-    FOREIGN KEY (zona)
-    REFERENCES Zona (nombre)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-CREATE INDEX zona_bloque_idx on Bloque (zona ASC) ;
+CREATE TABLE public."Persona" (
+    dni integer NOT NULL,
+    fecha_nac date,
+    nombre character varying(45),
+    apellidos character varying(45)
+);
 
-CREATE TABLE IF NOT EXISTS Piso (
-  numero INT NOT NULL,
-  calle VARCHAR(45) NOT NULL,
-  planta INT NOT NULL,
-  nombre_b INT NOT NULL,
-  portal CHAR NOT NULL,
-  m2_vivienda INT NULL,
-  m2_comun INT NULL,
-  PRIMARY KEY (numero, calle, planta, portal),
-  CONSTRAINT piso_bloque
-    FOREIGN KEY (numero , calle, nombre_b)
-    REFERENCES Bloque (numero , calle, nombre)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+CREATE TABLE public."Piso" (
+    planta integer NOT NULL,
+    m2_vivienda integer,
+    m2_comun integer,
+    portal character(1) NOT NULL
+)
+INHERITS (public."Bloque");
 
-CREATE TABLE IF NOT EXISTS Persona (
-  DNI INT NOT NULL,
-  nombre VARCHAR(45) NULL,
-  apellido VARCHAR(45) NULL,
-  fecha_nac DATE NULL,
-  familia VARCHAR(45) NULL,
-  PRIMARY KEY (DNI));
-
-CREATE TABLE IF NOT EXISTS Residente (
-  dni INT NOT NULL,
-  PRIMARY KEY (dni),
-  CONSTRAINT dni_persona
-    FOREIGN KEY (dni)
-    REFERENCES Persona (DNI)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-CREATE TABLE IF NOT EXISTS Propietario (
-  dni INT NOT NULL,
-  PRIMARY KEY (dni),
-  CONSTRAINT dni_persona
-    FOREIGN KEY (dni)
-    REFERENCES Persona (dni)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+CREATE TABLE public."Propietario" (
+)
+INHERITS (public."Persona");
 
 
-CREATE TABLE IF NOT EXISTS ResideVivienda (
-  dni INT NOT NULL,
-  numero INT NULL,
-  calle VARCHAR(45) NULL,
-  PRIMARY KEY (dni),
-  CONSTRAINT dni_residente
-    FOREIGN KEY (dni)
-    REFERENCES Residente (dni)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT vivienda_residente
-    FOREIGN KEY (numero , calle)
-    REFERENCES ViviendaUnifamiliar (numero , calle)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-CREATE INDEX vivienda_residente_idx ON ResideVivienda(numero ASC, calle ASC) ;
+CREATE TABLE public."PropietarioPiso" (
+    dni integer NOT NULL,
+    numero integer NOT NULL,
+    zona character varying(45) NOT NULL,
+    calle character varying(45) NOT NULL,
+    nombre character varying(45) NOT NULL,
+    planta integer NOT NULL,
+    portal character(1) NOT NULL
+);
 
-CREATE TABLE IF NOT EXISTS ResidePiso (
-  dni INT NOT NULL,
-  numero INT NULL,
-  calle VARCHAR(45) NULL,
-  planta INT NULL,
-  portal CHAR NULL,
-  PRIMARY KEY (dni),
-  CONSTRAINT dni_residente
-    FOREIGN KEY (dni)
-    REFERENCES Residente (dni)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT residente_piso
-    FOREIGN KEY (numero , calle , planta , portal)
-    REFERENCES Piso (numero , calle , planta , portal)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-CREATE INDEX residente_piso_idx ON ResidePiso (numero ASC, calle ASC, planta ASC, portal ASC) ;
+CREATE TABLE public."PropietarioVivienda" (
+    dni integer NOT NULL,
+    numero integer NOT NULL,
+    calle character varying(45) NOT NULL,
+    zona character varying(45) NOT NULL
+);
 
-CREATE TABLE IF NOT EXISTS PropietarioPiso (
-  dni INT NOT NULL,
-  numero INT NOT NULL,
-  calle VARCHAR(45) NOT NULL,
-  planta INT NOT NULL,
-  portal CHAR NOT NULL,
-  PRIMARY KEY (dni, numero, calle, planta, portal),
-  CONSTRAINT dni_propietario
-    FOREIGN KEY (dni)
-    REFERENCES Propietario (dni)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT propietario_piso
-    FOREIGN KEY (numero , calle , planta , portal)
-    REFERENCES Piso (numero , calle , planta , portal)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-CREATE INDEX propietario_piso_idx ON PropietarioPiso (numero ASC, calle ASC, planta ASC, portal ASC) ;
+CREATE TABLE public."ResidePiso" (
+    dni integer NOT NULL,
+    numero integer,
+    calle character varying(45),
+    planta integer,
+    portal character(1),
+    zona character varying(45),
+    nombre character varying(45)
+);
 
-CREATE TABLE IF NOT EXISTS PropietarioVivienda (
-  dni INT NOT NULL,
-  numero INT NOT NULL,
-  calle VARCHAR(45) NOT NULL,
-  PRIMARY KEY (dni, calle, numero),
-  CONSTRAINT dni_propietario
-    FOREIGN KEY (dni)
-    REFERENCES Propietario (dni)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT propietario_vivienda
-    FOREIGN KEY (numero , calle)
-    REFERENCES ViviendaUnifamiliar (numero , calle)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-CREATE INDEX propietario_vivienda_idx  ON PropietarioVivienda (numero ASC, calle ASC) ;
+CREATE TABLE public."ResideVivienda" (
+    dni integer NOT NULL,
+    numero integer,
+    calle character varying(45),
+    zona character varying(45)
+);
 
-INSERT INTO zona (nombre, limite, extensión) values ('Mordor', array[POINT(1,1),POINT(2,2),POINT(3,3),POINT(4,4)], 27.5);
-INSERT INTO zona (nombre, limite, extensión) values ('Ofra', array[POINT(2,1),POINT(2,2),POINT(3,3),POINT(4,4)], 27.4);
-INSERT INTO ViviendaUnifamiliar (numero, calle, cp, m2_solar, fecha_construccion, zona) values (1, 'calle', 1234, 52, '12-22-2018', 'Mordor')
+CREATE TABLE public."Residente" (
+)
+INHERITS (public."Persona");
+
+CREATE TABLE public."ViviendaUnifamiliar" (
+    m2_construidos integer
+)
+INHERITS (public."Construccion");
+
+CREATE TABLE public."Zona" (
+    nombre character varying(45) NOT NULL,
+    limites point[],
+    extension double precision
+);
+
+COPY public."Bloque" (numero, calle, cp, m2_solar, fecha_construccion, nombre, m2_totales, num_plantas, zona) FROM stdin;
+\.
+
+COPY public."Construccion" (numero, calle, cp, m2_solar, fecha_construccion, zona) FROM stdin;
+\.
+
+COPY public."Persona" (dni, fecha_nac, nombre, apellidos) FROM stdin;
+\.
+
+COPY public."Piso" (numero, calle, cp, m2_solar, fecha_construccion, nombre, m2_totales, num_plantas, planta, m2_vivienda, m2_comun, portal, zona) FROM stdin;
+\.
+
+COPY public."Propietario" (dni, fecha_nac, nombre, apellidos) FROM stdin;
+\.
+
+COPY public."PropietarioPiso" (dni, numero, zona, calle, nombre, planta, portal) FROM stdin;
+\.
+
+COPY public."PropietarioVivienda" (dni, numero, calle, zona) FROM stdin;
+\.
+
+COPY public."ResidePiso" (dni, numero, calle, planta, portal, zona, nombre) FROM stdin;
+\.
+
+COPY public."ResideVivienda" (dni, numero, calle, zona) FROM stdin;
+\.
+
+COPY public."Residente" (dni, fecha_nac, nombre, apellidos) FROM stdin;
+\.
+
+COPY public."ViviendaUnifamiliar" (numero, calle, cp, m2_solar, fecha_construccion, m2_construidos, zona) FROM stdin;
+\.
+
+COPY public."Zona" (nombre, limites, extension) FROM stdin;
+\.
+
+ALTER TABLE ONLY public."Bloque"
+    ADD CONSTRAINT "Bloque_pkey" PRIMARY KEY (numero, calle, zona, nombre);
+
+ALTER TABLE ONLY public."Construccion"
+    ADD CONSTRAINT "Construccion_pkey" PRIMARY KEY (numero, calle, zona);
+
+ALTER TABLE ONLY public."Persona"
+    ADD CONSTRAINT "Persona_pkey" PRIMARY KEY (dni);
+
+ALTER TABLE ONLY public."Piso"
+    ADD CONSTRAINT "Piso_pkey" PRIMARY KEY (numero, calle, nombre, zona, planta, portal);
+
+ALTER TABLE ONLY public."PropietarioPiso"
+    ADD CONSTRAINT "PropietarioPiso_pkey" PRIMARY KEY (dni, numero, zona, calle, nombre, planta, portal);
+
+ALTER TABLE ONLY public."PropietarioVivienda"
+    ADD CONSTRAINT "PropietarioVivienda_pkey" PRIMARY KEY (dni, numero, calle, zona);
+
+ALTER TABLE ONLY public."Propietario"
+    ADD CONSTRAINT "Propietario_pkey" PRIMARY KEY (dni);
+
+ALTER TABLE ONLY public."ResidePiso"
+    ADD CONSTRAINT "ResidePiso_pkey" PRIMARY KEY (dni);
+
+ALTER TABLE ONLY public."ResideVivienda"
+    ADD CONSTRAINT "ResideVivienda_pkey" PRIMARY KEY (dni);
+
+ALTER TABLE ONLY public."Residente"
+    ADD CONSTRAINT "Residente_pkey" PRIMARY KEY (dni);
+
+ALTER TABLE ONLY public."ViviendaUnifamiliar"
+    ADD CONSTRAINT "ViviendaUnifamiliar_pkey" PRIMARY KEY (numero, calle, zona);
+
+ALTER TABLE ONLY public."Zona"
+    ADD CONSTRAINT zona_pkey PRIMARY KEY (nombre);
+
+ALTER TABLE ONLY public."Bloque"
+    ADD CONSTRAINT "Bloque_Construccion" FOREIGN KEY (numero, calle, zona) REFERENCES public."Construccion"(numero, calle, zona);
+
+ALTER TABLE ONLY public."Residente"
+    ADD CONSTRAINT dni_persona FOREIGN KEY (dni) REFERENCES public."Persona"(dni);
+
+ALTER TABLE ONLY public."Propietario"
+    ADD CONSTRAINT dni_persona FOREIGN KEY (dni) REFERENCES public."Persona"(dni);
+
+ALTER TABLE ONLY public."PropietarioPiso"
+    ADD CONSTRAINT dni_propietario FOREIGN KEY (dni) REFERENCES public."Propietario"(dni);
+
+ALTER TABLE ONLY public."PropietarioVivienda"
+    ADD CONSTRAINT dni_propietario FOREIGN KEY (dni) REFERENCES public."Propietario"(dni);
+
+ALTER TABLE ONLY public."ResideVivienda"
+    ADD CONSTRAINT dni_residente FOREIGN KEY (dni) REFERENCES public."Residente"(dni);
+
+ALTER TABLE ONLY public."ResidePiso"
+    ADD CONSTRAINT dni_residente FOREIGN KEY (dni) REFERENCES public."Residente"(dni);
+
+ALTER TABLE ONLY public."Piso"
+    ADD CONSTRAINT piso_bloque FOREIGN KEY (zona, numero, nombre, calle) REFERENCES public."Bloque"(zona, numero, nombre, calle);
+
+ALTER TABLE ONLY public."PropietarioPiso"
+    ADD CONSTRAINT propietario_piso FOREIGN KEY (numero, zona, calle, nombre, planta, portal) REFERENCES public."Piso"(numero, zona, calle, nombre, planta, portal);
+
+ALTER TABLE ONLY public."PropietarioVivienda"
+    ADD CONSTRAINT propietario_vivienda FOREIGN KEY (numero, calle, zona) REFERENCES public."ViviendaUnifamiliar"(numero, calle, zona);
+
+ALTER TABLE ONLY public."ResidePiso"
+    ADD CONSTRAINT residente_piso FOREIGN KEY (numero, calle, planta, portal, zona, nombre) REFERENCES public."Piso"(numero, calle, planta, portal, zona, nombre);
+
+ALTER TABLE ONLY public."ResideVivienda"
+    ADD CONSTRAINT residente_vivienda FOREIGN KEY (numero, calle, zona) REFERENCES public."ViviendaUnifamiliar"(numero, calle, zona);
+
+ALTER TABLE ONLY public."ViviendaUnifamiliar"
+    ADD CONSTRAINT vivienda_construccion FOREIGN KEY (numero, calle, zona) REFERENCES public."Construccion"(numero, calle, zona);
+
+ALTER TABLE ONLY public."Construccion"
+    ADD CONSTRAINT zona_construccion FOREIGN KEY (zona) REFERENCES public."Zona"(nombre);
