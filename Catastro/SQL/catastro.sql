@@ -83,42 +83,6 @@ CREATE TABLE public."Zona" (
     extension double precision
 );
 
-COPY public."Bloque" (numero, calle, cp, m2_solar, fecha_construccion, nombre, m2_totales, num_plantas, zona) FROM stdin;
-\.
-
-COPY public."Construccion" (numero, calle, cp, m2_solar, fecha_construccion, zona) FROM stdin;
-\.
-
-COPY public."Persona" (dni, fecha_nac, nombre, apellidos) FROM stdin;
-\.
-
-COPY public."Piso" (numero, calle, cp, m2_solar, fecha_construccion, nombre, m2_totales, num_plantas, planta, m2_vivienda, m2_comun, portal, zona) FROM stdin;
-\.
-
-COPY public."Propietario" (dni, fecha_nac, nombre, apellidos) FROM stdin;
-\.
-
-COPY public."PropietarioPiso" (dni, numero, zona, calle, nombre, planta, portal) FROM stdin;
-\.
-
-COPY public."PropietarioVivienda" (dni, numero, calle, zona) FROM stdin;
-\.
-
-COPY public."ResidePiso" (dni, numero, calle, planta, portal, zona, nombre) FROM stdin;
-\.
-
-COPY public."ResideVivienda" (dni, numero, calle, zona) FROM stdin;
-\.
-
-COPY public."Residente" (dni, fecha_nac, nombre, apellidos) FROM stdin;
-\.
-
-COPY public."ViviendaUnifamiliar" (numero, calle, cp, m2_solar, fecha_construccion, m2_construidos, zona) FROM stdin;
-\.
-
-COPY public."Zona" (nombre, limites, extension) FROM stdin;
-\.
-
 ALTER TABLE ONLY public."Bloque"
     ADD CONSTRAINT "Bloque_pkey" PRIMARY KEY (numero, calle, zona, nombre);
 
