@@ -10,6 +10,8 @@ Los músicos pueden componer canciones que luego se almacenarán en un álbum. U
 También se registrará la fecha de publicación, entre otros datos de interés. Las canciones individuales solo se venden en formato digital.
 Los álbumes pueden ser distribuidos por una discográfica o publicados por una productora independiente.
 
+# Enlace a los documentos
+[Documentos] (https://drive.google.com/open?id=1mXu9df5QKHjTwj0SfXiZ-Tm6siTKPqTi)
 
 ## Consultas
 ### Consultas generales
