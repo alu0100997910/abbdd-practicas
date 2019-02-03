@@ -11,7 +11,7 @@ También se registrará la fecha de publicación, entre otros datos de interés.
 Los álbumes pueden ser distribuidos por una discográfica o publicados por una productora independiente.
 
 # Enlace a los documentos
-(Documentos) [https://drive.google.com/open?id=1mXu9df5QKHjTwj0SfXiZ-Tm6siTKPqTi]
+[Documento](https://drive.google.com/open?id=1mXu9df5QKHjTwj0SfXiZ-Tm6siTKPqTi)
 
 ## Consultas
 ### Consultas generales
