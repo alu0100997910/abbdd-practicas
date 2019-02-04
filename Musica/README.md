@@ -12,9 +12,13 @@ Los álbumes pueden ser distribuidos por una discográfica o publicados por una 
 
 # Enlace a los documentos
 [Documentos en el Drive](https://drive.google.com/open?id=1mXu9df5QKHjTwj0SfXiZ-Tm6siTKPqTi)
+
 [Script de generacin de código](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/scripts/generacion_codigo.sql)
+
 [Script de carga de datos](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/scripts/carga_datos.sql)
+
 [Disparadores](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/scripts/disparadores.sql)
+
 [Conflictos para disparadores](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/scripts/conflictos_disparadores.sql)
 
 
