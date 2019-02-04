@@ -15,8 +15,8 @@ Los álbumes pueden ser distribuidos por una discográfica o publicados por una 
 
 ## Consultas
 ### Consultas generales
-
-
-
+![SELECT * FROM CANCIONES](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/imagenes/SELECT%20*%20FROM%20CANCIONES.png)
+![SELECT * FROM PERTENECE_CANCION_ALBUM](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/imagenes/select%20*%20from%20pertene_c_a.png)
+![select * from tocan_musico_instrumento](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/imagenes/select%20*%20from%20tocan_music_intrumento.png)
 ### Consultas con uniones
 
