@@ -13,6 +13,14 @@ Los álbumes pueden ser distribuidos por una discográfica o publicados por una 
 # Enlace a los documentos
 [Documentos en el Drive](https://drive.google.com/open?id=1mXu9df5QKHjTwj0SfXiZ-Tm6siTKPqTi)
 
+[Requisitos](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/Documentos/Requisitos.pdf)
+[Modelo ERE](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/Documentos/ERE.pdf)
+[Modelo Relacional](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/Documentos/GrafoRelacional.pdf)
+[ASIClases](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/Documentos/ASIClases.pdf)
+[CSI8](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/Documentos/CSI8.pdf)
+[ScriptCreacion](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/Documentos/ScriptCreacion.pdf)
+
+
 # Enlace a los Scripts
 
 [Script de generacin de código](https://github.com/alu0100997910/abbdd-practicas/blob/master/Musica/scripts/generacion_codigo.sql)
